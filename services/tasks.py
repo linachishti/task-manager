@@ -75,10 +75,10 @@ def create_task(title: str, user_id: int, priority: int = DEFAULT_PRIORITY) -> d
         The newly created task.
 
     Raises:
-        ValidationError: If the title is empty or only whitespace, or if the
-            priority is not an integer from 1 to 5.
+        ValidationError: If the title is not a string, is empty or only
+            whitespace, or if the priority is not an integer from 1 to 5.
     """
-    if not title.strip():
+    if not isinstance(title, str) or not title.strip():
         raise ValidationError("Task title cannot be empty.")
     _validate_priority(priority)
     task = create_task_record(title, user_id, priority)
